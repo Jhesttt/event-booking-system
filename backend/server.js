@@ -385,6 +385,37 @@ app.get('/api/users', (req, res) => {
   });
 });
 
+
+// GET route to fetch all user edit
+app.put('/api/users-edit/:username', (req, res) => {
+  const username = req.params.username;
+  const { name, email, organizationz } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ message: "Username is required" });
+  }
+
+  const query = `UPDATE users SET name = ?, email = ?, organizationz = ? WHERE username = ?`;
+
+  connection.query(query, [name, email, organizationz, username], (err, result) => {
+    if (err) {
+      console.error('Error updating user:', err);
+      return res.status(500).json({ message: 'Error updating user' });
+    }
+
+    // 🟢 **Check if any rows were affected**
+    if (result.affectedRows === 0) {
+      console.warn(`No user found with username: ${username}`);
+      return res.status(404).json({ message: "User not found or no changes made" });
+    }
+
+    console.log(`✅ User '${username}' updated successfully`);
+    res.status(200).json({ message: 'User updated successfully' });
+  });
+});
+
+
+
 //Adding user for council 
 
 app.post('/api/users', (req, res) => {
@@ -602,16 +633,16 @@ app.delete('/api/events/:id', (req, res) => {
   const sql = 'DELETE FROM events WHERE id = ?';
 
   connection.query(sql, [id], (err, result) => {
-    if (err) {
-      console.error('Error deleting event:', err);
-      return res.status(500).json({ message: 'Error deleting event', error: err });
-    }
+      if (err) {
+          console.error('Error deleting event:', err);
+          return res.status(500).json({ message: 'Error deleting event', error: err });
+      }
 
-    if (result.affectedRows > 0) {
-      res.status(200).json({ message: 'Event deleted successfully' });
-    } else {
-      res.status(404).json({ message: 'Event not found' });
-    }
+      if (result.affectedRows > 0) {
+          res.status(200).json({ message: 'Event deleted successfully' });
+      } else {
+          res.status(404).json({ message: 'Event not found' });
+      }
   });
 });
 
@@ -653,7 +684,7 @@ app.post('/api/events/approve/:id', (req, res) => {
     if (results.length > 0) {
       const event = results[0];
       const uploadsDir = path.join(__dirname, 'uploads');
-
+      
       // Get the next available image name
       const newImageName = getNextEventImageName(uploadsDir);
       const oldImagePath = path.join(uploadsDir, event.photo);

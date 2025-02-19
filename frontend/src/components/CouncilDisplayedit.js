@@ -159,39 +159,57 @@ const CouncilDisplayedit = () => {
 
       {/* Edit Modal */}
       {isEditModalOpen && selectedCouncil && (
-        <div className={styles.modalWrapper}>
-          <div className={styles.modalContent}>
-            <h3>Edit Council Details</h3>
-            <form onSubmit={handleEditCouncil} className={styles.form}>
-              {Object.keys(formData).map((field) => (
-                field !== 'id' && ( // We already removed 'createdAt' in the previous step
-                  <div key={field} className={styles.formGroup}>
-                    <label>{field.replace(/([A-Z])/g, ' $1')}:</label>
-                    <input
-                      type="text"
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleInputChange}
-                      className={styles.input}
-                    />
-                  </div>
-                )
-              ))}
+  <div className={styles.modalWrapper}>
+    <div className={styles.modalContent}>
+      <h3>Edit Council Details</h3>
+      <form onSubmit={handleEditCouncil} className={styles.form}>
+        {Object.keys(formData).map((field) => {
+           if (field === "id" || field === "adviserPIC") return null;
+          const fieldLabels = {
+            organization: "Organization",
+            adviser: "Adviser",
+            president: "President",
+            vicePresident: "Vice President",
+            secretary: "Secretary",
+            treasurer: "Treasurer",
+            auditor: "Auditor",
+            pro: "PRO",
+            rep: "First Year Representative",
+            representative: "Second Year Representative",
+            trdrepresentative: "Third Year Representative",
+            frthrepresentative: "Fourth Year Representative",
+          };
 
-              <div className={styles.formButtons}>
-                <button type="submit" className={styles.submitButton}>Save</button>
-                <button
-                  type="button"
-                  onClick={() => setIsEditModalOpen(false)}
-                  className={styles.cancelButton}
-                >
-                  Cancel
-                </button>
+          return (
+            field !== "id" && (
+              <div key={field} className={styles.formGroup}>
+                <label><strong>{fieldLabels[field] || field}:</strong></label>
+                <input
+                  type="text"
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleInputChange}
+                  className={styles.input}
+                />
               </div>
-            </form>
-          </div>
+            )
+          );
+        })}
+
+        <div className={styles.formButtons}>
+          <button type="submit" className={styles.submitButton}>Save</button>
+          <button
+            type="button"
+            onClick={() => setIsEditModalOpen(false)}
+            className={styles.cancelButton}
+          >
+            Cancel
+          </button>
         </div>
-      )}
+      </form>
+    </div>
+  </div>
+)}
     </div>
   );
 };

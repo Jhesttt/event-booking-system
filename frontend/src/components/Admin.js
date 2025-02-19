@@ -189,64 +189,78 @@ const Admin = () => {
   };
 
   // para sa delete button
-  const handleDelete = async () => {
-    if (!selectedEvent) return;
+  const handleDelete = async (eventId) => {
+    console.log('Attempting to delete event with ID:', eventId);
 
-    const { eventId, organization } = selectedEvent;
-    dialogRef.current.close();
+    const confirmed = window.confirm('Are you sure you want to delete this event?');
+    if (!confirmed) return;
 
     try {
-      console.log("Attempting to delete event with ID:", eventId);
+        // Step 1: Fetch the organization from the event
+        const orgResponse = await fetch(`http://localhost:5000/api/events/${eventId}/organization`);
+        const orgData = await orgResponse.json();
 
-      const response = await fetch(`http://localhost:5000/api/events/${eventId}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const responseBody = await response.json();
-      console.log("Response body:", responseBody);
-
-      if (response.ok) {
-        console.log(`Notifying organization: ${organization}`);
-        await sendEventNotification(organization, eventId);
-
-        alert("Event deleted successfully");
-        setEvents((prevEvents) => prevEvents.filter((event) => event.id !== eventId));
-      } else {
-        console.error("Delete failed:", responseBody);
-        alert(`Failed to delete event: ${responseBody.message || "Unknown error"}`);
-      }
-    } catch (error) {
-      console.error("Error deleting event:", error);
-      alert("Error deleting event");
-    }
-  };
-
-  // Function to send notification to the organization
-  const sendEventNotification = async (organization, eventId) => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/send-event-notification",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ organization, eventId }),
+        if (!orgResponse.ok || !orgData.organization) {
+            console.error('Failed to fetch organization:', orgData.message);
+            alert('Failed to fetch organization for event.');
+            return;
         }
-      );
 
-      const responseBody = await response.json();
-      console.log("Notification Response:", responseBody);
-      if (response.ok) {
-        console.log("Notification sent to organization email");
-      } else {
-        console.error("Failed to send notification:", responseBody.message);
-      }
+        const organization = orgData.organization; // Extract organization name
+        console.log(`Organization found: ${organization}`);
+
+        // Step 2: Delete the event
+        const response = await fetch(`http://localhost:5000/api/events/${eventId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const responseBody = await response.json();
+        console.log('Response body:', responseBody);
+
+        if (response.ok) {
+            // Step 3: Notify the organization about the deletion
+            console.log(`Notifying organization: ${organization}`);
+            await sendEventNotification(organization, eventId); // Send email notification
+
+            alert('Event deleted successfully');
+            setEvents(prevEvents => prevEvents.filter(event => event.id !== eventId)); // Remove event from UI
+        } else {
+            console.error('Delete failed:', responseBody);
+            alert(`Failed to delete event: ${responseBody.message || 'Unknown error'}`);
+        }
     } catch (error) {
-      console.error("Error sending notification:", error);
+        console.error('Error deleting event:', error);
+        alert('Error deleting event');
     }
-  };
+};
+
+
+// Function to send notification to the organization
+const sendEventNotification = async (organization, eventId) => {
+    try {
+        const response = await fetch('http://localhost:5000/api/send-event-notification', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ organization, eventId }),
+        });
+
+        const responseBody = await response.json();
+        console.log('Notification Response:', responseBody);
+        if (response.ok) {
+            console.log('Notification sent to organization email');
+        } else {
+            console.error('Failed to send notification:', responseBody.message);
+        }
+    } catch (error) {
+        console.error('Error sending notification:', error);
+    }
+};
+
 
   const openApproveModal = (eventId) => {
     setSelectedEventId(eventId);
@@ -258,36 +272,79 @@ const Admin = () => {
     setSelectedEventId(null);
   };
 
-  const handleConfirm = async () => {
-    if (!selectedEventId) return;
+  const handleConfirm = async (eventId) => {
+    console.log('Attempting to approve event with ID:', eventId);
+
+    const confirmed = window.confirm('Are you sure you want to approve this event?');
+    if (!confirmed) return;
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/events/approve/${selectedEventId}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        // Fetch the organization first
+        const orgResponse = await fetch(`http://localhost:5000/api/fetchpendingapproved/${eventId}`);
+        const orgData = await orgResponse.json();
+
+        if (!orgResponse.ok) {
+            console.error('Error fetching organization:', orgData.message);
+            alert(`Error fetching organization: ${orgData.message}`);
+            return;
         }
-      );
 
-      const responseBody = await response.json();
-      console.log("Response body:", responseBody);
+        const organization = orgData.organization;
+        console.log('Fetched organization:', organization);
 
-      if (response.ok) {
-        alert("Event approved successfully!");
-        setEvents((prevEvents) =>
-          prevEvents.filter((event) => event.id !== selectedEventId)
-        );
-      } else {
-        alert(`Failed to approve event: ${responseBody.message || "Unknown error"}`);
-      }
+        // Approve the event
+        const response = await fetch(`http://localhost:5000/api/events/approve/${eventId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const responseBody = await response.json();
+        console.log('Response body:', responseBody);
+
+        if (response.ok) {
+            console.log('Approve response:', responseBody);
+
+            // Send approval notification
+            console.log(`Notifying organization: ${organization}`);
+            await sendApprovedNotification(organization, eventId);
+
+            alert('Event approved successfully and email sent!');
+            setEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
+        } else {
+            console.error('Approval failed:', responseBody);
+            alert(`Failed to approve event: ${responseBody.message || 'Unknown error'}`);
+        }
     } catch (error) {
-      alert("Error approving event");
-      console.error("Error approving event:", error);
+        console.error('Error approving event:', error);
+        alert('Error approving event');
     }
+};
 
-    closeApproveModal();
-  };
+
+// Function to send email notification to the organization
+const sendApprovedNotification = async (organization, eventId) => {
+    try {
+        const response = await fetch('http://localhost:5000/api/send-approved-notification', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ organization, eventId }),
+        });
+
+        const responseBody = await response.json();
+        console.log('Notification Response:', responseBody);
+        if (response.ok) {
+            console.log('Notification sent to organization email');
+        } else {
+            console.error('Failed to send notification:', responseBody.message);
+        }
+    } catch (error) {
+        console.error('Error sending notification:', error);
+    }
+};
 
 
   const handleLogout = () => {
@@ -484,15 +541,18 @@ const Admin = () => {
                           <td className={styles.tableCell}>{user.password}</td>
                           <td className={styles.tableCell}>
                             <div className={styles.actions}>
-                              <button
-                                className={styles.editButton}
-                                onClick={() => {
-                                  setCurrentUser(user); // Set current user
-                                  setIsEditModalOpen(true); // Open the edit modal
-                                }}
-                              >
-                                <FaPen className={styles.pen} />
-                              </button>
+                            <button
+  className={styles.editButton}
+  onClick={() => {
+    console.log("Editing user:", user); // 🟢 Debugging
+    setCurrentUser(user); // ✅ Pass selected user
+    setIsEditModalOpen(true); // ✅ Open modal
+  }}
+>
+  <FaPen className={styles.pen} />
+</button>
+
+
                               <button className={styles.deleteButton} onClick={() => handleDeleteUser(user)}>
                                 <FaTrash className={styles.trash} />
                               </button>

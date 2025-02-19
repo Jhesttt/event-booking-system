@@ -182,7 +182,7 @@ const EventTable = ({ events, openApproveModal, openDeleteModal, handleViewDocum
                   )}
                   <button
                     className={styles.button}
-                    onClick={() => handleDelete(event.id, event.organization)}
+                    onClick={() => handleDelete(event.id)}
                   >
                     ❌
                   </button>

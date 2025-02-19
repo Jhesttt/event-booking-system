@@ -14,8 +14,10 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
     const storedOrganization = localStorage.getItem('userOrganization');
     if (storedOrganization) {
       setOrganization(storedOrganization);
+      handleInputChange({ target: { name: 'organization', value: storedOrganization } }); // Update eventData
     }
   }, []);
+  
   
  //testing start
 // Function to convert 12-hour format (AM/PM) to 24-hour format

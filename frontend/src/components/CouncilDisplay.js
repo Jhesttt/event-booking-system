@@ -189,8 +189,16 @@ const CouncilDisplay = () => {
                   {selectedCouncil.rep}
                 </p>
                 <p>
-                  <strong>Second Year Representative (Alternate):</strong>{" "}
+                  <strong>Second Year Representative :</strong>{" "}
                   {selectedCouncil.representative}
+                </p>
+                <p>
+                  <strong>Third Year Representative :</strong>{" "}
+                  {selectedCouncil.trdrepresentative}
+                </p>
+                <p>
+                  <strong>Fourthc Year Representative :</strong>{" "}
+                  {selectedCouncil.frthrepresentative}
                 </p>
               </div>
             </div>
