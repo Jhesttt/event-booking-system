@@ -173,14 +173,22 @@ const Dashboard = () => {
 
       const isTwoDayEvent = userToDate && (userToDate.getDate() === userFromDate.getDate() + 1);
 
-      // **New Validation: If `toDate` is Saturday, `fromDate` must also be Saturday**
-      if (userToDate && userToDate.getDay() === 6) { // 6 = Saturday
-        if (userFromDate.getDay() !== 6) {
-          toast.error("Events ending on Saturday must start on Saturday.", { duration: 4000 });
-          return;
+      // **New Validation: No events spanning over Saturday**
+      if (userToDate) {
+        let currentDate = new Date(userFromDate);
+        while (currentDate <= userToDate) {
+          if (currentDate.getDay() === 6) { // 6 = Saturday
+            toast.error("Events cannot span across a Saturday.", { duration: 4000 });
+            return;
+          }
+          currentDate.setDate(currentDate.getDate() + 1);
         }
-        if (isTwoDayEvent) {
-          toast.error("Saturday events must be one-day events.", { duration: 4000 });
+      }
+
+      // **New Validation: If event starts on a Saturday, it must end on the same Saturday**
+      if (userFromDate.getDay() === 6) { // 6 = Saturday
+        if (!userToDate || userToDate.getTime() !== userFromDate.getTime()) {
+          toast.error("Events starting on Saturday must also end on Saturday.", { duration: 4000 });
           return;
         }
       }
@@ -313,6 +321,7 @@ const Dashboard = () => {
       toast.error("Please fill in all time fields correctly", { duration: 4000 });
     }
   };
+
 
 
 
