@@ -179,7 +179,7 @@ const Dashboard = () => {
           if (currentDate.getDay() === 6) { // 6 = Saturday
             // Allow only if it's a single-day event on Saturday
             if (!(userFromDate.getTime() === userToDate.getTime())) {
-              toast.error("Events cannot span across a Saturday.", { duration: 4000 });
+              toast.error("Long events should only be within Monday to Thursday.", { duration: 4000 });
               return;
             }
           }
