@@ -390,7 +390,7 @@ const Admin = () => {
 
   const handleLogout = () => {
     sessionStorage.clear();
-
+    localStorage.clear(); // Remove user/admin session
     navigate("/login", { replace: true });
   };
   const handleViewDocument = (documentName) => {

@@ -74,7 +74,7 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     sessionStorage.clear();
-
+    localStorage.clear(); // Remove user/admin session
     navigate("/login", { replace: true });
   };
 
