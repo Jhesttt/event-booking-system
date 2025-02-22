@@ -1,6 +1,6 @@
 // routes/route.js
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const { sendVerificationCode } = require('./mailer');
 const { sendEventDeletionEmail } = require('./mailerdelete'); // Import the mailer function
 const { sendEventApprovalEmail } = require('./mailerapproval');
