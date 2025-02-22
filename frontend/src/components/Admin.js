@@ -395,7 +395,7 @@ const Admin = () => {
   };
   const handleViewDocument = (documentName) => {
     // Construct the URL for the document in the 'uploads' folder
-    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/api/uploads/${documentName}`;
+    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/uploads/${documentName}`;
 
     // Log the URL for debugging
     console.log("Document URL:", fullDocumentUrl);
@@ -412,7 +412,7 @@ const Admin = () => {
   };
   const handleViewImage = (imageName) => {
     // Construct the URL for the image in the 'uploads' folder
-    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/api/uploads/${imageName}`;
+    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/uploads/${imageName}`;
 
     // Log the URL for debugging
     console.log("Image URL:", fullImageUrl);

@@ -19,7 +19,7 @@ const Slideshow = () => {
 
   // Memoize the image URLs based on the filenames fetched
   const images = useMemo(() => {
-    return imageFiles.map((image) => `https://event-booking-system-ckik.onrender.com/api/uploads/${image}`);
+    return imageFiles.map((image) => `https://event-booking-system-ckik.onrender.com/uploads/${image}`);
   }, [imageFiles]);
 
   useEffect(() => {

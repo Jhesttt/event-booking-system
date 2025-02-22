@@ -36,7 +36,7 @@ const EventTableApproved = () => {
   };
 
   const handleViewDocument = (documentName) => {
-    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/api/uploads/${documentName}`;
+    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/uploads/${documentName}`;
     setSelectedDocument(fullDocumentUrl);
     setSelectedDocumentName(documentName);
     setShowDocumentModal(true);
@@ -49,7 +49,7 @@ const EventTableApproved = () => {
   };
 
   const handleViewImage = (imageName) => {
-    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/api/uploads/${imageName}`;
+    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/uploads/${imageName}`;
     setSelectedDocument(fullImageUrl);
     setSelectedDocumentName(imageName);
     setShowDocumentModal(true);
@@ -147,7 +147,7 @@ const EventTableApproved = () => {
                   <td className={styles.tableCell}>{event.duration}</td>
                   <td className={styles.tableCell}>
                     {event.documents && (
-                      <a className={styles.viewDocs} href={`https://event-booking-system-ckik.onrender.com/api/uploads/${event.documents}`}
+                      <a className={styles.viewDocs} href={`https://event-booking-system-ckik.onrender.com/uploads/${event.documents}`}
                         target="_blank"
                         rel="noopener noreferrer">
                         View Document
@@ -156,7 +156,7 @@ const EventTableApproved = () => {
                   </td>
                   <td className={styles.tableCell}>
                     {event.photo && (
-                      <a className={styles.viewDocs} href={`https://event-booking-system-ckik.onrender.com/api/uploads/${event.photo}`}
+                      <a className={styles.viewDocs} href={`https://event-booking-system-ckik.onrender.com/uploads/${event.photo}`}
                         target="_blank"
                         rel="noopener noreferrer">
                         View Image

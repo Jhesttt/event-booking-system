@@ -64,7 +64,7 @@ const EventTable = ({ events, openApproveModal, openDeleteModal, handleViewDocum
                   <td className={styles.tableCell}>
                     {event.documents && (
                       <a
-                        href={`https://event-booking-system-ckik.onrender.com/api/uploads/${event.documents}`}
+                        href={`https://event-booking-system-ckik.onrender.com/uploads/${event.documents}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.viewDocs}
@@ -79,7 +79,7 @@ const EventTable = ({ events, openApproveModal, openDeleteModal, handleViewDocum
                   <td className={styles.tableCell}>
                     {event.photo && (
                       <a
-                        href={`https://event-booking-system-ckik.onrender.com/api/uploads/${event.photo}`}
+                        href={`https://event-booking-system-ckik.onrender.com/uploads/${event.photo}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.viewDocs}

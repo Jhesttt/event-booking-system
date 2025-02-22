@@ -18,7 +18,7 @@ app.use(verificationRoutes);
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use("/api/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 
 
 //report 
@@ -263,7 +263,7 @@ app.delete('/api/reports/:id', (req, res) => {
 
 // Serve files from the 'documents' and 'uploads' folders
 app.use('/api/adviserpic', express.static(path.join(__dirname, 'adviserpic')));
-app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //FOR SLIDESHOW
 // Endpoint to fetch the list of images from the 'uploads' folder
