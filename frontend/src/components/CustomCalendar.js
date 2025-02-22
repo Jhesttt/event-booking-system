@@ -31,14 +31,14 @@ const CustomCalendar = () => {
 
   // Filter events when a date is selected
   const filterEventsByDate = (date) => {
-    const formattedDate = date.toISOString().split("T")[0];
+    const formattedDate = date.toLocaleDateString("en-CA");
     const matchedEvents = allEvents.filter((event) => {
-      const eventDate = new Date(event.date).toISOString().split("T")[0];
-      const eventDateFrom = new Date(event.datefrom).toISOString().split("T")[0];
+      const eventDate = new Date(event.date).toLocaleDateString("en-CA");
+      const eventDateFrom = new Date(event.datefrom).toLocaleDateString("en-CA");
       return eventDate <= formattedDate && eventDateFrom >= formattedDate;
     });
 
-    setFilteredEvents(matchedEvents); // Update filtered events
+    setFilteredEvents(matchedEvents);
   };
 
   // Handle date click
@@ -74,12 +74,10 @@ const CustomCalendar = () => {
   // Check if any events exist for the given date
   const hasEvents = (date) => {
     if (!date) return false;
-    const formattedDate = date.toISOString().split("T")[0];
+    const formattedDate = date.toLocaleDateString("en-CA");
     return allEvents.some((event) => {
-      const eventDate = new Date(event.date).toISOString().split("T")[0];
-      const eventDateFrom = new Date(event.datefrom)
-        .toISOString()
-        .split("T")[0];
+      const eventDate = new Date(event.date).toLocaleDateString("en-CA");
+      const eventDateFrom = new Date(event.datefrom).toLocaleDateString("en-CA");
       return eventDate <= formattedDate && eventDateFrom >= formattedDate;
     });
   };
