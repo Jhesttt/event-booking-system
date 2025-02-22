@@ -1,4 +1,14 @@
 {
+  "name": "event-booking-system",
+  "version": "1.0.0",
+  "description": "Event booking system backend",
+  "main": "backend/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "vercel-build": "echo 'Skipping build for backend'",
+    "vercel-start": "node backend/server.js"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
