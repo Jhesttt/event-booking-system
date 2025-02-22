@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Event booking system backend",
   "main": "backend/server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node backend/server.js",
     "vercel-build": "echo 'Skipping build for backend'",
