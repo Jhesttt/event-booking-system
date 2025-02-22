@@ -22,7 +22,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       // Send a POST request with username and password for admin login
-      const response = await axios.post("https://event-booking-system-ckik.onrender.com/adminlogin", {
+      const response = await axios.post("https://event-booking-system-ckik.onrender.com/api/adminlogin", {
         username,
         password,
       });
@@ -86,11 +86,11 @@ const AdminLogin = () => {
           </div>
           <div
             className={`${styles.linksContainer} ${[
-                errorMessage && <p className={styles.error}>{errorMessage}</p>,
-                <p className={styles.forgotPassword}>Forgot Password?</p>,
-              ].filter(Boolean).length === 1
-                ? styles.singleChild
-                : styles.multiChild
+              errorMessage && <p className={styles.error}>{errorMessage}</p>,
+              <p className={styles.forgotPassword}>Forgot Password?</p>,
+            ].filter(Boolean).length === 1
+              ? styles.singleChild
+              : styles.multiChild
               }`}
           >
             {errorMessage && <p className={styles.error}>{errorMessage}</p>}

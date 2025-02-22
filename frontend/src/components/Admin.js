@@ -191,7 +191,7 @@ const Admin = () => {
     console.log("User to be deleted:", selectedUser.username);
 
     // Send DELETE request to the backend with the username
-    fetch(`https://event-booking-system-ckik.onrender.com/users-delete/${selectedUser.username}`, {
+    fetch(`https://event-booking-system-ckik.onrender.com/api/users-delete/${selectedUser.username}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -395,7 +395,7 @@ const Admin = () => {
   };
   const handleViewDocument = (documentName) => {
     // Construct the URL for the document in the 'uploads' folder
-    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/uploads/${documentName}`;
+    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/api/uploads/${documentName}`;
 
     // Log the URL for debugging
     console.log("Document URL:", fullDocumentUrl);
@@ -412,7 +412,7 @@ const Admin = () => {
   };
   const handleViewImage = (imageName) => {
     // Construct the URL for the image in the 'uploads' folder
-    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/uploads/${imageName}`;
+    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/api/uploads/${imageName}`;
 
     // Log the URL for debugging
     console.log("Image URL:", fullImageUrl);

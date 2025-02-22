@@ -19,7 +19,7 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post('https://event-booking-system-ckik.onrender.com/signup', {
+            const response = await axios.post('https://event-booking-system-ckik.onrender.com/api/signup', {
                 email,
                 username,
                 password,

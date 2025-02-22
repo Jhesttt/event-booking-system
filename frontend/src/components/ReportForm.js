@@ -31,7 +31,7 @@ const ReportForm = () => {
     console.log("Sending data:", { userId, message, org });
 
     try {
-      await axios.post("https://event-booking-system-ckik.onrender.com/submitReport", {
+      await axios.post("https://event-booking-system-ckik.onrender.com/api/submitReport", {
         userId,
         message,
         org,

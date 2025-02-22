@@ -14,7 +14,7 @@ const ForgotPassword = () => {
       try {
         // Make the API call to check if email exists
         const response = await axios.post(
-          "https://event-booking-system-ckik.onrender.com/check-email-admin",
+          "https://event-booking-system-ckik.onrender.com/api/check-email-admin",
           { email }
         );
 

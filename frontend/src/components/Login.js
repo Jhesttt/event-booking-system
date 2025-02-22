@@ -21,7 +21,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://event-booking-system-ckik.onrender.com/login', {
+            const response = await axios.post('https://event-booking-system-ckik.onrender.com/api/login', {
                 username,
                 password,
             });

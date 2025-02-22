@@ -19,7 +19,7 @@ const CouncilsAndOrganizations = ({ councils, setCouncils, showAddCouncilForm, s
 
   const confirmDelete = async () => {
     try {
-      const response = await fetch(`https://event-booking-system-ckik.onrender.com/delete-council/${councilToDelete}`, {
+      const response = await fetch(`https://event-booking-system-ckik.onrender.com/api/delete-council/${councilToDelete}`, {
         method: "DELETE",
       });
 

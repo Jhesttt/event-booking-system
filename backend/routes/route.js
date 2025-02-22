@@ -131,7 +131,7 @@ router.post('/api/send-verification-code', (req, res) => {
 
 
 // Get all councils
-router.get('/councils', (req, res) => {
+router.get('/api/councils', (req, res) => {
   const query = 'SELECT * FROM councils';
   connection.query(query, (err, results) => {
     if (err) {
