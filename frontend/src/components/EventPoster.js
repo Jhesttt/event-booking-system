@@ -6,7 +6,7 @@ import styles from './EventPoster.module.css';
 const EventPoster = () => {
   const [image, setImage] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
-  
+
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
     const imageUrl = URL.createObjectURL(file);

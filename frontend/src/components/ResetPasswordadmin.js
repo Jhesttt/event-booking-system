@@ -46,7 +46,7 @@ const ResetPasswordadmin = () => {
       // Send the new password to the backend
       try {
         const response = await fetch(
-          "http://localhost:5000/api/reset-passwordadmin",
+          "https://event-booking-system-ckik.onrender.com/api/reset-passwordadmin",
           {
             method: "POST",
             headers: {

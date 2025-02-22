@@ -10,7 +10,7 @@ const NewsAndInformation = () => {
   useEffect(() => {
     const fetchApprovedData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/approved");
+        const response = await axios.get("https://event-booking-system-ckik.onrender.com/api/approved");
         setNews(response.data);
       } catch (error) {
         console.error("Error fetching approved data:", error);
@@ -41,7 +41,7 @@ const NewsAndInformation = () => {
         currentUpcomingEvents.map((item) => (
           <div key={item.id} className={styles.newsItem}>
             <img
-              src={`http://localhost:5000/uploads/${item.photo}`}
+              src={`https://event-booking-system-ckik.onrender.com/uploads/${item.photo}`}
               alt={item.name}
               className={styles.newsImage}
             />
@@ -54,7 +54,7 @@ const NewsAndInformation = () => {
               {new Date(item.datefrom).toLocaleDateString()}
             </p>
             <a
-              href={`http://localhost:5000/uploads/${item.documents}`}
+              href={`https://event-booking-system-ckik.onrender.com/uploads/${item.documents}`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.documentLink}
@@ -88,7 +88,7 @@ const NewsAndInformation = () => {
         pastEvents.map((item) => (
           <div key={item.id} className={styles.newsItem}>
             <img
-              src={`http://localhost:5000/uploads/${item.photo}`}
+              src={`https://event-booking-system-ckik.onrender.com/uploads/${item.photo}`}
               alt={item.name}
               className={styles.newsImage}
             />
@@ -101,7 +101,7 @@ const NewsAndInformation = () => {
               {new Date(item.datefrom).toLocaleDateString()}
             </p>
             <a
-              href={`http://localhost:5000/uploads/${item.documents}`}
+              href={`https://event-booking-system-ckik.onrender.com/uploads/${item.documents}`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.documentLink}

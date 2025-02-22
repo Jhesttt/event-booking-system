@@ -13,7 +13,7 @@ const UpcomingEvents = () => {
   useEffect(() => {
     const fetchApprovedData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/approved");
+        const response = await axios.get("https://event-booking-system-ckik.onrender.com/api/approved");
         setNews(response.data);
       } catch (error) {
         console.error("Error fetching approved data:", error);
@@ -41,10 +41,10 @@ const UpcomingEvents = () => {
           currentUpcomingEvents.map((item) => (
             <div key={item.id} className={styles.newsItem}>
               <div className={styles.imgCont}>
-                <a className={styles.imgCont} href={`http://localhost:5000/uploads/${item.photo}`}
+                <a className={styles.imgCont} href={`https://event-booking-system-ckik.onrender.com/uploads/${item.photo}`}
                   target="_blank"
                   rel="noopener noreferrer"><img
-                    src={`http://localhost:5000/uploads/${item.photo}`}
+                    src={`https://event-booking-system-ckik.onrender.com/uploads/${item.photo}`}
                     alt={item.name}
                     className={styles.newsImage}
                   /></a>

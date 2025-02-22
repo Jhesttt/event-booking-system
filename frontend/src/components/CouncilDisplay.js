@@ -16,7 +16,7 @@ const CouncilDisplay = () => {
     const fetchCouncils = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/councilsdisplay"
+          "https://event-booking-system-ckik.onrender.com/api/councilsdisplay"
         );
         setCouncilsAndOrganizations(response.data); // Set all the councils data
       } catch (error) {
@@ -33,7 +33,7 @@ const CouncilDisplay = () => {
       if (selectedCouncil) {
         try {
           const orgString = String(selectedCouncil.organization);
-          const response = await axios.get('http://localhost:5000/api/getApprovedData', {
+          const response = await axios.get('https://event-booking-system-ckik.onrender.com/api/getApprovedData', {
             params: { organization: orgString },
           });
 
@@ -146,7 +146,7 @@ const CouncilDisplay = () => {
                     rel="noopener noreferrer"
                   >
                     <img
-                      src={`http://localhost:5000/adviserpic/${selectedCouncil.adviserPIC}`}
+                      src={`https://event-booking-system-ckik.onrender.com/adviserpic/${selectedCouncil.adviserPIC}`}
                       alt="Adviser"
                       className={styles.adviserImage}
                     />
@@ -226,7 +226,7 @@ const CouncilDisplay = () => {
                   rel="noopener noreferrer"
                 >
                   <img
-                    src={`http://localhost:5000/adviserpic/${selectedCouncil.adviserPIC}`}
+                    src={`https://event-booking-system-ckik.onrender.com/adviserpic/${selectedCouncil.adviserPIC}`}
                     alt="Adviser"
                     className={styles.adviserImage}
                   />

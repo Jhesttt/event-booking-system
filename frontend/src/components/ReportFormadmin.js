@@ -11,7 +11,7 @@ const ReportForm = () => {
     const userId = 1; // Static user ID, replace with actual logic for logged-in user
 
     try {
-      await axios.post("http://localhost:5000/submitReportadmin", { userId, message });
+      await axios.post("https://event-booking-system-ckik.onrender.com/submitReportadmin", { userId, message });
       alert("Report submitted successfully");
       setMessage(""); // Reset the message field after submission
     } catch (error) {

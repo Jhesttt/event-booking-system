@@ -26,7 +26,7 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
 
   useEffect(() => {
     if (isModalOpen) {
-      axios.get('http://localhost:5000/api/organizations')
+      axios.get('https://event-booking-system-ckik.onrender.com/api/organizations')
         .then(response => {
           setOrganizations(response.data);
         })

@@ -13,26 +13,26 @@ const ForgotPassword = () => {
     if (email) {
       try {
         // Make the API call to check if email exists
-        const response = await axios.post("http://localhost:5000/check-email", {
+        const response = await axios.post("https://event-booking-system-ckik.onrender.com/check-email", {
           email,
         });
 
         if (response.status === 200) {
           try {
-            const response = await fetch('http://localhost:5000/api/send-verification-code', {
+            const response = await fetch('https://event-booking-system-ckik.onrender.com/api/send-verification-code', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({ email }),
             });
-        
+
             const result = await response.json();
-        
+
             if (response.ok) {
               const verificationCode = result.verificationCode; // Extract the code from the response
               console.log('Verification code received from backend:', verificationCode); // Debug log
-        
+
               // Navigate to EnterCode with email and code, and replace the current history entry
               navigate('/enter-code', { state: { email, verificationCode }, replace: true });
             } else {

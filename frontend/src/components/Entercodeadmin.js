@@ -42,7 +42,7 @@ const EnterCodeadmin = () => {
   };
 
   return (
-<div className={styles.enterCodeContainer}>
+    <div className={styles.enterCodeContainer}>
       <div className={styles.codeCont}>
         <div className={styles.iconCont}>
           <FaUserLock className={styles.icon} />

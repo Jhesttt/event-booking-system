@@ -18,7 +18,7 @@ const EventTableApproved = () => {
   // Fetch events function
   const fetchEvents = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/approved");
+      const response = await axios.get("https://event-booking-system-ckik.onrender.com/api/approved");
       setEvents(response.data);
     } catch (error) {
       console.error("Error fetching events:", error);
@@ -36,7 +36,7 @@ const EventTableApproved = () => {
   };
 
   const handleViewDocument = (documentName) => {
-    const fullDocumentUrl = `http://localhost:5000/uploads/${documentName}`;
+    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/uploads/${documentName}`;
     setSelectedDocument(fullDocumentUrl);
     setSelectedDocumentName(documentName);
     setShowDocumentModal(true);
@@ -49,7 +49,7 @@ const EventTableApproved = () => {
   };
 
   const handleViewImage = (imageName) => {
-    const fullImageUrl = `http://localhost:5000/uploads/${imageName}`;
+    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/uploads/${imageName}`;
     setSelectedDocument(fullImageUrl);
     setSelectedDocumentName(imageName);
     setShowDocumentModal(true);
@@ -62,7 +62,7 @@ const EventTableApproved = () => {
 
   const sendCancelEventNotification = async (organization, eventId, eventName) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/send-event-cancellation-notification", {
+      const response = await axios.post("https://event-booking-system-ckik.onrender.com/api/send-event-cancellation-notification", {
         organization,
         eventId,
         eventName,
@@ -76,7 +76,7 @@ const EventTableApproved = () => {
 
   const confirmDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/approved-table/${eventToDelete}`);
+      const response = await axios.delete(`https://event-booking-system-ckik.onrender.com/api/approved-table/${eventToDelete}`);
       if (response.status === 200) {
         // Find the event details (for notification) before removing it from state
         const eventCanceled = events.find((event) => event.id === eventToDelete);
@@ -147,7 +147,7 @@ const EventTableApproved = () => {
                   <td className={styles.tableCell}>{event.duration}</td>
                   <td className={styles.tableCell}>
                     {event.documents && (
-                      <a className={styles.viewDocs} href={`http://localhost:5000/uploads/${event.documents}`}
+                      <a className={styles.viewDocs} href={`https://event-booking-system-ckik.onrender.com/uploads/${event.documents}`}
                         target="_blank"
                         rel="noopener noreferrer">
                         View Document
@@ -156,7 +156,7 @@ const EventTableApproved = () => {
                   </td>
                   <td className={styles.tableCell}>
                     {event.photo && (
-                      <a className={styles.viewDocs} href={`http://localhost:5000/uploads/${event.photo}`}
+                      <a className={styles.viewDocs} href={`https://event-booking-system-ckik.onrender.com/uploads/${event.photo}`}
                         target="_blank"
                         rel="noopener noreferrer">
                         View Image

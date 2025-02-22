@@ -14,14 +14,14 @@ const ForgotPassword = () => {
       try {
         // Make the API call to check if email exists
         const response = await axios.post(
-          "http://localhost:5000/check-email-admin",
+          "https://event-booking-system-ckik.onrender.com/check-email-admin",
           { email }
         );
 
         if (response.status === 200) {
           try {
             const response = await fetch(
-              "http://localhost:5000/api/send-verification-code",
+              "https://event-booking-system-ckik.onrender.com/api/send-verification-code",
               {
                 method: "POST",
                 headers: {
@@ -52,7 +52,7 @@ const ForgotPassword = () => {
               );
               alert(
                 result.message ||
-                  "Failed to send the verification code. Please try again."
+                "Failed to send the verification code. Please try again."
               );
             }
           } catch (error) {
