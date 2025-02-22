@@ -173,13 +173,15 @@ const Dashboard = () => {
 
       const isTwoDayEvent = userToDate && (userToDate.getDate() === userFromDate.getDate() + 1);
 
-      // **New Validation: No events spanning over Saturday**
       if (userToDate) {
         let currentDate = new Date(userFromDate);
         while (currentDate <= userToDate) {
           if (currentDate.getDay() === 6) { // 6 = Saturday
-            toast.error("Events cannot span across a Saturday.", { duration: 4000 });
-            return;
+            // Allow only if it's a single-day event on Saturday
+            if (!(userFromDate.getTime() === userToDate.getTime())) {
+              toast.error("Events cannot span across a Saturday.", { duration: 4000 });
+              return;
+            }
           }
           currentDate.setDate(currentDate.getDate() + 1);
         }
