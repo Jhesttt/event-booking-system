@@ -29,6 +29,7 @@ const AdminLogin = () => {
 
       if (response.data.success) {
         // If login is successful, redirect to the admin dashboard
+        localStorage.setItem("adminUsername", username); // Store admin session
         navigate("/admin");
       } else {
         // Display an error message if login failed
