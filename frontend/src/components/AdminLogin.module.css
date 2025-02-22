@@ -4,9 +4,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
-    background-color: #f5f5f5; /* Background color */
-    padding: 20px; /* Ensure padding on smaller screens */
+    height: 100vh;
+    /* Full viewport height */
+    background-color: #f5f5f5;
+    /* Background color */
+    padding: 20px;
+    /* Ensure padding on smaller screens */
     box-sizing: border-box;
 }
 
@@ -19,16 +22,20 @@
     border-radius: 16px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    width: 100%; /* Full width for responsiveness */
-    max-width: 480px; /* Limit the max width */
-    min-width: 200px; /* Ensure it doesn't shrink too much */
+    width: 100%;
+    /* Full width for responsiveness */
+    max-width: 480px;
+    /* Limit the max width */
+    min-width: 200px;
+    /* Ensure it doesn't shrink too much */
     box-sizing: border-box;
-    margin: 0 auto; /* Center the form */
+    margin: 0 auto;
+    /* Center the form */
     position: relative;
 }
 
 .logo {
-    width: 64px ;
+    width: 64px;
 }
 
 /* Title styles */
@@ -36,7 +43,8 @@
     margin-top: 8px;
     font-size: 28px;
     font-weight: 700;
-    color: #063970; /* Title color */
+    color: #063970;
+    /* Title color */
     text-align: center;
 }
 
@@ -62,14 +70,16 @@
 
 /* Input field styles */
 .input {
-    width: 100%; /* Responsive input field */
+    width: 100%;
+    /* Responsive input field */
     padding: 12px 20px;
     margin-bottom: 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
 }
-.forgotPassword{
+
+.forgotPassword {
     margin-top: 0;
     font-size: 14px;
     margin-bottom: 0px;
@@ -77,18 +87,22 @@
     cursor: pointer;
     text-align: right;
 }
-.forgotPassword:hover{
+
+.forgotPassword:hover {
     text-decoration: underline;
 }
+
 /* Button styles */
 .button {
     padding: 12px 20px;
-    width: 100%; /* Full-width button */
+    width: 100%;
+    /* Full-width button */
     margin-top: 12px;
     margin-bottom: 24px;
     border: none;
     border-radius: 8px;
-    background-color: #063970; /* Button color */
+    background-color: #063970;
+    /* Button color */
     color: #fff;
     cursor: pointer;
     transition: 0.15s;
@@ -134,7 +148,8 @@
 
 /* Error message styles */
 .error {
-    color: red; /* Style for error messages */
+    color: red;
+    /* Style for error messages */
     margin-top: -8px;
     margin-bottom: 8px;
     text-align: left;
@@ -152,28 +167,34 @@
 .eyeButton {
     position: absolute;
     top: 40%;
-    right: 10px; /* Aligns the button to the right inside the input */
-    transform: translateY(-50%); /* Centers the icon vertically */
+    right: 10px;
+    /* Aligns the button to the right inside the input */
+    transform: translateY(-50%);
+    /* Centers the icon vertically */
     background: none;
     border: none;
-    color: #0e4296; /* Match your theme color */
+    color: #0e4296;
+    /* Match your theme color */
     font-size: 1.2rem;
     cursor: pointer;
     outline: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: transparent;
     padding: 8px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .formContainer {
-        max-width: 90%; /* Allow form to take 90% of the screen */
+        max-width: 90%;
+        /* Allow form to take 90% of the screen */
     }
+
     .title {
-        font-size: 24px; /* Slightly smaller title */
+        font-size: 24px;
+        /* Slightly smaller title */
     }
 }
 
@@ -185,17 +206,25 @@
 
     .formContainer {
         position: static;
-        padding: 20px; /* Reduce padding for very small screens */
-        max-width: 100%; /* Take almost the full width */
+        padding: 20px;
+        /* Reduce padding for very small screens */
+        max-width: 100%;
+        /* Take almost the full width */
         box-shadow: none;
     }
+
     .title {
-        font-size: 22px; /* Adjust title size */
+        font-size: 22px;
+        /* Adjust title size */
     }
+
     .input {
-        padding: 10px; /* Compact input fields */
+        padding: 10px;
+        /* Compact input fields */
     }
+
     .button {
-        padding: 10px; /* Adjust button padding */
+        padding: 10px;
+        /* Adjust button padding */
     }
 }
