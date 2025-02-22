@@ -156,7 +156,6 @@ const Dashboard = () => {
       eventData.toMinute &&
       eventData.toAmPm
     ) {
-      // Convert user's from and to times to 24-hour format
       const userFrom = convertTo24Hour(
         eventData.fromHour + ":" + eventData.fromMinute,
         eventData.fromAmPm
@@ -169,15 +168,27 @@ const Dashboard = () => {
       const minTime = { hours: 7, minutes: 0 };  // 7:00 AM
       const maxTime = { hours: 17, minutes: 0 }; // 5:00 PM
 
-      const userFromDate = new Date(eventData.fromDate); // Convert to Date object
-      const userToDate = eventData.toDate ? new Date(eventData.toDate) : null; // Only set toDate if provided
+      const userFromDate = new Date(eventData.fromDate);
+      const userToDate = eventData.toDate ? new Date(eventData.toDate) : null;
 
       const isTwoDayEvent = userToDate && (userToDate.getDate() === userFromDate.getDate() + 1);
+
+      // **New Validation: If `toDate` is Saturday, `fromDate` must also be Saturday**
+      if (userToDate && userToDate.getDay() === 6) { // 6 = Saturday
+        if (userFromDate.getDay() !== 6) {
+          toast.error("Events ending on Saturday must start on Saturday.", { duration: 4000 });
+          return;
+        }
+        if (isTwoDayEvent) {
+          toast.error("Saturday events must be one-day events.", { duration: 4000 });
+          return;
+        }
+      }
 
       // Validation: Ensure `toDate` is not earlier than `fromDate`
       if (userToDate && userToDate < userFromDate) {
         toast.error("`To Date` cannot be earlier than `From Date`.", { duration: 4000 });
-        return; // Prevent submission
+        return;
       }
 
       // Validate the time range
@@ -197,7 +208,6 @@ const Dashboard = () => {
         return;
       }
 
-      // If it's not a two-day event, the end time must not be earlier than the start time
       if (
         !isTwoDayEvent &&
         (userTo.hours < userFrom.hours ||
@@ -229,23 +239,20 @@ const Dashboard = () => {
 
         // Validate for conflicts
         for (let event of approvedEvents) {
-          const savedStartDate = new Date(event.date); // Assume event.date is the `fromDate`
-          const savedEndDate = event.datefrom ? new Date(event.datefrom) : savedStartDate; // If `toDate` is not provided, use `fromDate`
+          const savedStartDate = new Date(event.date);
+          const savedEndDate = event.datefrom ? new Date(event.datefrom) : savedStartDate;
 
-          // Check if the event is in the same venue and dates overlap
           if (event.venue === eventData.venue) {
             if (
               userFromDate <= savedEndDate &&
-              (!userToDate || userToDate >= savedStartDate) // Ensure date overlap works even if `toDate` is null
+              (!userToDate || userToDate >= savedStartDate)
             ) {
               console.log("Date conflict found with event:", event);
 
-              // Check for time conflict within the same venue and overlapping dates
               const [savedFrom, savedTo] = event.duration.split(' to ');
               const savedFromTime = convertTo24Hour(savedFrom.split(' ')[0] + ":" + savedFrom.split(' ')[1], savedFrom.split(' ')[2]);
               const savedToTime = convertTo24Hour(savedTo.split(' ')[0] + ":" + savedTo.split(' ')[1], savedTo.split(' ')[2]);
 
-              // Time overlap check
               if (
                 (userFrom.hours < savedToTime.hours ||
                   (userFrom.hours === savedToTime.hours &&
@@ -258,7 +265,7 @@ const Dashboard = () => {
                   "The selected time overlaps with an existing event at the same venue.";
                 console.error(errorMessage, event);
                 toast.error(errorMessage, { duration: 4000 });
-                return; // Prevent submission
+                return;
               }
             }
           }
@@ -266,18 +273,17 @@ const Dashboard = () => {
 
         console.log("No conflicts found. Proceeding to save event...");
 
-        // If no conflicts found, proceed with form submission
         const formData = new FormData();
         formData.append("venue", eventData.venue);
         formData.append("name", eventData.name);
         formData.append("organization", eventData.organization);
-        formData.append("date", eventData.fromDate); // Store fromDate in 'date'
+        formData.append("date", eventData.fromDate);
 
         if (eventData.toDate) {
-          formData.append("datefrom", eventData.toDate); // Store toDate only if provided
+          formData.append("datefrom", eventData.toDate);
         }
 
-        formData.append("duration", duration); // Use the formatted duration string
+        formData.append("duration", duration);
         formData.append("document", eventData.document);
         formData.append("poster", eventData.poster);
 
@@ -291,8 +297,8 @@ const Dashboard = () => {
           if (postResponse.status === 200) {
             console.log("Event successfully saved to the database:", postResponse.data);
             toast.success("Event successfully added", { duration: 4000 });
-            setError(null); // Clear the error state
-            setModalOpen(false); // Close the modal after successful submission
+            setError(null);
+            setModalOpen(false);
           }
         } catch (postError) {
           console.error("Error saving event to database:", postError);
@@ -307,6 +313,7 @@ const Dashboard = () => {
       toast.error("Please fill in all time fields correctly", { duration: 4000 });
     }
   };
+
 
 
   return (

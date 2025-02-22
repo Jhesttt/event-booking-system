@@ -198,9 +198,10 @@ app.post('/api/submitReport', (req, res) => {
   // Log the data to ensure it's being passed correctly
   console.log("Received data:", { userId, message, org });
 
-  // Insert the report into the database with the additional fields for name and organization
-  const query = 'INSERT INTO reports (user_id, message, status, org) VALUES (?, ?, "pending", ?)';
-  connection.query(query, [userId, message, org], (err, result) => {
+  // Insert the report into the database with "hello" as the default for messageadmin
+  const query = 'INSERT INTO reports (user_id, message, status, org, messageadmin) VALUES (?, ?, "pending", ?, ?)';
+
+  connection.query(query, [userId, message, org, 'hello'], (err, result) => {
     if (err) {
       console.error('Error inserting report:', err);
       return res.status(500).json({ error: 'Failed to submit report' });
@@ -210,6 +211,7 @@ app.post('/api/submitReport', (req, res) => {
     res.status(200).json({ message: 'Report submitted successfully', reportId: result.insertId });
   });
 });
+
 
 
 
