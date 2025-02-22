@@ -224,7 +224,7 @@ const Dashboard = () => {
         console.log("Checking for overlapping events...");
 
         // Fetch all approved events from the server
-        const response = await axios.get("http://localhost:5000/api/approved");
+        const response = await axios.get("https://event-booking-system-ckik.onrender.com/api/approved");
         const approvedEvents = response.data;
 
         // Validate for conflicts
@@ -283,7 +283,7 @@ const Dashboard = () => {
 
         try {
           const postResponse = await axios.post(
-            "http://localhost:5000/api/events",
+            "https://event-booking-system-ckik.onrender.com/api/events",
             formData,
             { headers: { "Content-Type": "multipart/form-data" } }
           );

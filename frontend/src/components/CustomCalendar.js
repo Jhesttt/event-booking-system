@@ -17,7 +17,7 @@ const CustomCalendar = () => {
   useEffect(() => {
     const fetchAllEvents = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/approved");
+        const response = await axios.get("https://event-booking-system-ckik.onrender.com/api/approved");
         console.log("All approved events fetched from backend:", response.data);
         setAllEvents(response.data); // Store all events
       } catch (error) {

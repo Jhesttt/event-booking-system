@@ -33,7 +33,7 @@ const AddCouncils = ({ showAddCouncilForm, setShowAddCouncilForm }) => {
     });
 
     try {
-      const response = await fetch('http://localhost:5000/api/councils-add', {
+      const response = await fetch('https://event-booking-system-ckik.onrender.com/api/councils-add', {
         method: 'POST',
         body: formData,
       });

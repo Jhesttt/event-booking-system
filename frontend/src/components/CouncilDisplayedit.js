@@ -24,7 +24,7 @@ const CouncilDisplayedit = () => {
 
     const fetchCouncils = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/councils');
+        const response = await axios.get('https://event-booking-system-ckik.onrender.com/api/councils');
         setCouncilsAndOrganizations(response.data);
       } catch (error) {
         console.error('Error fetching councils:', error);
@@ -55,7 +55,7 @@ const CouncilDisplayedit = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/councilsedit/${formData.id}`, formData);
+      const response = await axios.put(`https://event-booking-system-ckik.onrender.com/api/councilsedit/${formData.id}`, formData);
       if (response.status === 200) {
         // Update the councils list with the edited data
         setCouncilsAndOrganizations((prevCouncils) =>
@@ -147,7 +147,7 @@ const CouncilDisplayedit = () => {
                     rel="noopener noreferrer"
                   >
                     <img
-                      src={`http://localhost:5000/adviserpic/${selectedCouncil.adviserPIC}`}
+                      src={`https://event-booking-system-ckik.onrender.com/api/adviserpic/${selectedCouncil.adviserPIC}`}
                       alt="Adviser"
                       className={styles.adviserImage}
                     />

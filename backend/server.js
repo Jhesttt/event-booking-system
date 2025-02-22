@@ -102,7 +102,7 @@ app.post('/api/reset-passwordadmin', (req, res) => {
 //admin email check
 
 
-app.post('/check-email-admin', (req, res) => {
+app.post('/api/check-email-admin', (req, res) => {
   const { email } = req.body;
 
   // Query to check if email exists in the users table
@@ -125,7 +125,7 @@ app.post('/check-email-admin', (req, res) => {
 
 
 // Route to check if the email exists in the database
-app.post('/check-email', (req, res) => {
+app.post('/api/check-email', (req, res) => {
   const { email } = req.body;
   if (!email) {
     return res.status(400).json({ message: 'Email is required' });
@@ -152,7 +152,7 @@ app.post('/check-email', (req, res) => {
 
 // check email 
 // Route to check if email exists in the database
-app.post('/check-email', (req, res) => {
+app.post('/api/check-email', (req, res) => {
   const { email } = req.body;
 
   // Query to check if email exists in the users table
@@ -174,7 +174,7 @@ app.post('/check-email', (req, res) => {
 
 
 // Route to submit a report (User side)
-app.post('/submitReportadmin', (req, res) => {
+app.post('/api/submitReportadmin', (req, res) => {
   const { userId, message } = req.body;
 
   // Insert the report into the database
@@ -192,7 +192,7 @@ app.post('/submitReportadmin', (req, res) => {
 
 
 // Route to submit a report (User side)
-app.post('/submitReport', (req, res) => {
+app.post('/api/submitReport', (req, res) => {
   const { userId, message, org } = req.body;
 
   // Log the data to ensure it's being passed correctly
@@ -262,7 +262,7 @@ app.delete('/api/reports/:id', (req, res) => {
 
 
 // Serve files from the 'documents' and 'uploads' folders
-app.use('/adviserpic', express.static(path.join(__dirname, 'adviserpic')));
+app.use('/api/adviserpic', express.static(path.join(__dirname, 'adviserpic')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //FOR SLIDESHOW
@@ -480,7 +480,7 @@ app.get('/api/councilsdisplay', (req, res) => {
 });
 
 // Login route for users
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   const query = 'SELECT * FROM users WHERE username = ?';
 
@@ -510,7 +510,7 @@ app.post('/login', (req, res) => {
 
 
 // Login route for admin
-app.post('/adminlogin', (req, res) => {
+app.post('/api/adminlogin', (req, res) => {
   const { username, password } = req.body;
   console.log('Login attempt with username:', username); // Debugging line
 
@@ -890,7 +890,7 @@ app.post('/api/councils-add', uploadForAdviserPic, (req, res) => {
 
 
 // Delete a council by ID
-app.delete("/delete-council/:id", (req, res) => {
+app.delete("/api/delete-council/:id", (req, res) => {
   const { id } = req.params;
   connection.query("DELETE FROM councils WHERE id = ?", [id], (err, result) => {
     if (err) {
@@ -927,7 +927,7 @@ app.delete('/api/delete-user/:id', (req, res) => {
 
 
 // In your server.js (Node.js example)
-app.delete('/users-delete/:username', (req, res) => {
+app.delete('/api/users-delete/:username', (req, res) => {
   const { username } = req.params;
 
   // Perform the deletion in your database, e.g. MySQL or MongoDB

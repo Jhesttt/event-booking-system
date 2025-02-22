@@ -35,7 +35,7 @@ const UserEdit = ({ isOpen, closeModal, userData, setRefreshUser }) => {
     if (!validateInputs()) return;
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/users/${editedUser.id}`, editedUser);
+      const response = await axios.put(`https://event-booking-system-ckik.onrender.com/api/users/${editedUser.id}`, editedUser);
       toast.success("User updated successfully:", { duration: 4000 })
       console.log("User updated successfully:", response.data);
       setRefreshUser((prev) => !prev);

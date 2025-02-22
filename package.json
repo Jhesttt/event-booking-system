@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "Event booking system backend",
   "main": "backend/server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node backend/server.js",
     "vercel-build": "echo 'Skipping build for backend'",
     "vercel-start": "node backend/server.js"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

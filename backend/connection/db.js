@@ -2,11 +2,11 @@ const mysql = require('mysql2');
 
 // Create a connection pool
 const pool = mysql.createPool({
-  host: 'mysql.railway.internal', // Railway's internal host
-  user: 'root', // Your database user
-  password: 'JKrdHjvUnaZMbMsDBLfvpmnnbmlgoGJb', // Your password
-  database: 'railway', // Your database name
-  port: 3306, // Railway's default MySQL port
+  host: 'ballast.proxy.rlwy.net', // Railway's external host ✅
+  user: 'root',
+  password: 'JKrdHjvUnaZMbMsDBLfvpmnnbmlgoGJb',
+  database: 'railway',
+  port: 24219, // Correct Railway port ✅
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

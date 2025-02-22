@@ -18,7 +18,7 @@ const AddUserModal = ({ isOpen, closeModal, addUser }) => {
     useEffect(() => {
         const fetchOrganizations = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/organizations');
+                const response = await fetch('https://event-booking-system-ckik.onrender.com/api/organizations');
                 const data = await response.json();
                 if (response.ok) {
                     setOrganizations(data);
@@ -85,7 +85,7 @@ const AddUserModal = ({ isOpen, closeModal, addUser }) => {
 
     const checkUsernameExistence = async (username) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/check-username?username=${username}`);
+            const response = await fetch(`https://event-booking-system-ckik.onrender.com/api/check-username?username=${username}`);
             const data = await response.json();
             if (data.exists) {
                 setUsernameError('Username already exists.');
@@ -104,7 +104,7 @@ const AddUserModal = ({ isOpen, closeModal, addUser }) => {
             const user = { name, username, email, password, organizationz };
 
             try {
-                const response = await fetch('http://localhost:5000/api/users', {
+                const response = await fetch('https://event-booking-system-ckik.onrender.com/api/users', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(user),

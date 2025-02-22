@@ -75,7 +75,7 @@ const Admin = () => {
     if (activeComponent === "Events") {
       const fetchEvents = async () => {
         try {
-          const response = await axios.get("http://localhost:5000/api/events");
+          const response = await axios.get("https://event-booking-system-ckik.onrender.com/api/events");
           setEvents(response.data);
         } catch (error) {
           console.error("Error fetching events:", error);
@@ -89,7 +89,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/users");
+        const response = await fetch("https://event-booking-system-ckik.onrender.com/api/users");
         const data = await response.json();
 
         if (response.ok) {
@@ -111,7 +111,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchCouncils = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/councils");
+        const response = await fetch("https://event-booking-system-ckik.onrender.com/api/councils");
         const data = await response.json();
 
         if (response.ok) {
@@ -132,7 +132,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/users");
+        const response = await fetch("https://event-booking-system-ckik.onrender.com/api/users");
         const data = await response.json();
 
         if (response.ok) {
@@ -168,7 +168,7 @@ const Admin = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/events") // Update URL to point to the correct port
+      .get("https://event-booking-system-ckik.onrender.com/api/events") // Update URL to point to the correct port
       .then((response) => {
         setEvents(response.data);
       })
@@ -191,7 +191,7 @@ const Admin = () => {
     console.log("User to be deleted:", selectedUser.username);
 
     // Send DELETE request to the backend with the username
-    fetch(`http://localhost:5000/users-delete/${selectedUser.username}`, {
+    fetch(`https://event-booking-system-ckik.onrender.com/api/users-delete/${selectedUser.username}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -238,7 +238,7 @@ const Admin = () => {
     try {
       console.log("Attempting to delete event with ID:", eventId);
 
-      const response = await fetch(`http://localhost:5000/api/events/${eventId}`, {
+      const response = await fetch(`https://event-booking-system-ckik.onrender.com/api/events/${eventId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -273,7 +273,7 @@ const Admin = () => {
   const sendEventNotification = async (organization, eventId, name) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/send-event-notification",
+        "https://event-booking-system-ckik.onrender.com/api/send-event-notification",
         {
           method: "POST",
           headers: {
@@ -307,7 +307,7 @@ const Admin = () => {
 
   const sendEventApprovalNotification = async (organization, eventId, eventName) => {
     try {
-      const response = await fetch("http://localhost:5000/api/send-event-approval-notification", {
+      const response = await fetch("https://event-booking-system-ckik.onrender.com/api/send-event-approval-notification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ organization, eventId, eventName }),
@@ -328,7 +328,7 @@ const Admin = () => {
 
     try {
       // First, check for overlapping events
-      const response = await fetch("http://localhost:5000/api/events/check-overlap", {
+      const response = await fetch("https://event-booking-system-ckik.onrender.com/api/events/check-overlap", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -345,7 +345,7 @@ const Admin = () => {
       if (response.ok) {
         // Approve the event
         const approveResponse = await fetch(
-          `http://localhost:5000/api/events/approve/${selectedEventId.eventId}`,
+          `https://event-booking-system-ckik.onrender.com/api/events/approve/${selectedEventId.eventId}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -395,7 +395,7 @@ const Admin = () => {
   };
   const handleViewDocument = (documentName) => {
     // Construct the URL for the document in the 'uploads' folder
-    const fullDocumentUrl = `http://localhost:5000/uploads/${documentName}`;
+    const fullDocumentUrl = `https://event-booking-system-ckik.onrender.com/uploads/${documentName}`;
 
     // Log the URL for debugging
     console.log("Document URL:", fullDocumentUrl);
@@ -412,7 +412,7 @@ const Admin = () => {
   };
   const handleViewImage = (imageName) => {
     // Construct the URL for the image in the 'uploads' folder
-    const fullImageUrl = `http://localhost:5000/uploads/${imageName}`;
+    const fullImageUrl = `https://event-booking-system-ckik.onrender.com/uploads/${imageName}`;
 
     // Log the URL for debugging
     console.log("Image URL:", fullImageUrl);

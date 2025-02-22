@@ -1,6 +1,6 @@
 // routes/route.js
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const { sendVerificationCode } = require('./mailer');
 const { sendEventDeletionEmail } = require('./mailerdelete'); // Import the mailer function
 const { sendEventApprovalEmail } = require('./mailerapproval');
@@ -131,7 +131,7 @@ router.post('/api/send-verification-code', (req, res) => {
 
 
 // Get all councils
-router.get('/councils', (req, res) => {
+router.get('/api/councils', (req, res) => {
   const query = 'SELECT * FROM councils';
   connection.query(query, (err, results) => {
     if (err) {

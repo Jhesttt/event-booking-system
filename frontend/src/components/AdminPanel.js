@@ -14,7 +14,7 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/reports");
+        const response = await axios.get("https://event-booking-system-ckik.onrender.com/api/reports");
         setReports(response.data);
       } catch (error) {
         console.error("Error fetching reports:", error);
@@ -33,7 +33,7 @@ const AdminPanel = () => {
   // Confirm single report deletion
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/reports/${reportToDelete}`);
+      await axios.delete(`https://event-booking-system-ckik.onrender.com/api/reports/${reportToDelete}`);
       setReports(reports.filter((report) => report.id !== reportToDelete)); // Remove deleted report from the UI
       toast.success("Report deleted successfully", { duration: 4000 });
     } catch (error) {
@@ -51,7 +51,7 @@ const AdminPanel = () => {
   // // Confirm delete all reports
   // const confirmDeleteAll = async () => {
   //   try {
-  //     const response = await axios.delete("http://localhost:5000/api/reports/deleteall");
+  //     const response = await axios.delete("https://event-booking-system-ckik.onrender.com/api/reports/deleteall");
   //     console.log(response); // Log the response from backend
   //     setReports([]); // Clear all reports from the UI
   //     alert("All reports deleted successfully");

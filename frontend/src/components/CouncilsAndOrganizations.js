@@ -19,7 +19,7 @@ const CouncilsAndOrganizations = ({ councils, setCouncils, showAddCouncilForm, s
 
   const confirmDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/delete-council/${councilToDelete}`, {
+      const response = await fetch(`https://event-booking-system-ckik.onrender.com/api/delete-council/${councilToDelete}`, {
         method: "DELETE",
       });
 
@@ -48,7 +48,7 @@ const CouncilsAndOrganizations = ({ councils, setCouncils, showAddCouncilForm, s
 
   const handleUpdateCouncil = async (updatedCouncilData) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/update-council/${selectedCouncil.id}`, {
+      const response = await fetch(`https://event-booking-system-ckik.onrender.com/api/update-council/${selectedCouncil.id}`, {
         method: "PUT",
         body: JSON.stringify(updatedCouncilData),
         headers: { "Content-Type": "application/json" },
