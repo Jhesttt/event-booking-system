@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styles from './Dashboard.module.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styles from "./Dashboard.module.css";
 import { toast } from "sonner";
 
-const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, handleFileChange, handleModalSubmit }) => {
+const EventModal = ({
+  isModalOpen,
+  setModalOpen,
+  eventData,
+  handleInputChange,
+  handleFileChange,
+  handleModalSubmit,
+}) => {
   const [organizations, setOrganizations] = useState([]);
-  const [error, setError] = useState(''); // For fromDate validation
-  const [toDateError, setToDateError] = useState(''); // For toDate validation
-  const [organization, setOrganization] = useState('');
-
+  const [error, setError] = useState(""); // For fromDate validation
+  const [toDateError, setToDateError] = useState(""); // For toDate validation
+  const [organization, setOrganization] = useState("");
 
   useEffect(() => {
-    const storedOrganization = localStorage.getItem('userOrganization');
+    const storedOrganization = localStorage.getItem("userOrganization");
     if (storedOrganization) {
       setOrganization(storedOrganization);
     }
@@ -20,70 +26,67 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
   //testing start
   // Function to convert 12-hour format (AM/PM) to 24-hour format
 
-
-
-
-
   useEffect(() => {
     if (isModalOpen) {
-      axios.get('https://event-booking-system-ckik.onrender.com/api/organizations')
-        .then(response => {
-          setOrganizations(response.data);
+      Promise.all([
+        axios.get(
+          "https://event-booking-system-ckik.onrender.com/api/organizations"
+        ),
+        axios.get(
+          "https://event-booking-system-ckik.onrender.com/api/forbidden-days"
+        ),
+      ])
+        .then(([orgResponse, daysResponse]) => {
+          setOrganizations(orgResponse.data);
+          setForbiddenDays(daysResponse.data.forbiddenDays);
         })
-        .catch(error => {
-          console.error('Error fetching organizations:', error);
+        .catch((error) => {
+          console.error("Error fetching data:", error);
         });
     }
   }, [isModalOpen]);
 
   const twoWeeksAhead = new Date();
   twoWeeksAhead.setDate(twoWeeksAhead.getDate() + 14);
-  const minDate = twoWeeksAhead.toISOString().split('T')[0];
+  const minDate = twoWeeksAhead.toISOString().split("T")[0];
+
+  const [forbiddenDays, setForbiddenDays] = useState([]); // Default: Sunday & Friday
+
+  const isForbiddenDay = (date) => {
+    const dayOfWeek = new Date(date).getDay();
+    return forbiddenDays.includes(dayOfWeek);
+  };
 
   const handleDateValidation = (e) => {
     const selectedDate = e.target.value;
     if (selectedDate) {
       const selectedDateObj = new Date(selectedDate);
       if (selectedDateObj < twoWeeksAhead) {
-        setError('The date must be at least two weeks from today.');
+        setError("The date must be at least two weeks from today.");
       } else {
-        setError('');
+        setError("");
       }
     }
   };
 
-  const isFridayOrSunday = (date) => {
-    const dayOfWeek = new Date(date).getDay();
-    return dayOfWeek === 5 || dayOfWeek === 0;  // 5 = Friday, 0 = Sunday
-  };
-
-
   const handleFromDateValidation = (e) => {
     const selectedDate = e.target.value;
-    if (isFridayOrSunday(selectedDate)) {
-      toast.error("Fridays and Sundays are not allowed.", { duration: 4000 });
+    if (isForbiddenDay(selectedDate)) {
+      toast.error("This day is not allowed.", { duration: 4000 });
 
-      // Reset the input value by updating the state via handleInputChange
       handleInputChange({
-        target: {
-          name: "fromDate",
-          value: "",  // Clear the input value
-        },
+        target: { name: "fromDate", value: "" },
       });
     }
   };
 
   const handleToDateValidation = (e) => {
     const selectedDate = e.target.value;
-    if (isFridayOrSunday(selectedDate)) {
-      toast.error("Fridays and Sundays are not allowed.", { duration: 4000 });
+    if (isForbiddenDay(selectedDate)) {
+      toast.error("This day is not allowed.", { duration: 4000 });
 
-      // Reset the input value by updating the state via handleInputChange
       handleInputChange({
-        target: {
-          name: "toDate",
-          value: "",  // Clear the input value
-        },
+        target: { name: "toDate", value: "" },
       });
     }
   };
@@ -91,10 +94,10 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
   useEffect(() => {
     if (isModalOpen) {
       const fromDateInput = document.querySelector('input[name="fromDate"]');
-      fromDateInput.addEventListener('blur', handleDateValidation);
+      fromDateInput.addEventListener("blur", handleDateValidation);
 
       return () => {
-        fromDateInput.removeEventListener('blur', handleDateValidation);
+        fromDateInput.removeEventListener("blur", handleDateValidation);
       };
     }
   }, [isModalOpen]);
@@ -159,7 +162,10 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
               type="date"
               name="fromDate"
               value={eventData.fromDate}
-              onChange={(e) => { handleInputChange(e); handleFromDateValidation(e); }}
+              onChange={(e) => {
+                handleInputChange(e);
+                handleFromDateValidation(e);
+              }}
               required
               className={styles.input}
               min={minDate}
@@ -210,8 +216,8 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
                     className={styles.timeInput}
                   >
                     {[...Array(60).keys()].map((i) => (
-                      <option key={i} value={String(i).padStart(2, '0')}>
-                        {String(i).padStart(2, '0')}
+                      <option key={i} value={String(i).padStart(2, "0")}>
+                        {String(i).padStart(2, "0")}
                       </option>
                     ))}
                   </select>
@@ -251,8 +257,8 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
                     className={styles.timeInput}
                   >
                     {[...Array(60).keys()].map((i) => (
-                      <option key={i} value={String(i).padStart(2, '0')}>
-                        {String(i).padStart(2, '0')}
+                      <option key={i} value={String(i).padStart(2, "0")}>
+                        {String(i).padStart(2, "0")}
                       </option>
                     ))}
                   </select>
@@ -320,4 +326,4 @@ const EventModal = ({ isModalOpen, setModalOpen, eventData, handleInputChange, h
   );
 };
 
-export default EventModal; 
+export default EventModal;
